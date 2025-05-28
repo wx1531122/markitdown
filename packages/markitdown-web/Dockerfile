@@ -5,10 +5,10 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy the local markitdown package source first
-COPY ../markitdown /app/packages/markitdown
+COPY packages/markitdown /app/packages/markitdown
 
 # Copy the markitdown-web package source
-COPY . /app/packages/markitdown-web
+COPY packages/markitdown-web /app/packages/markitdown-web
 
 # Install the markitdown package and its dependencies
 # This assumes 'all' extras are desired for markitdown, adjust if not.
