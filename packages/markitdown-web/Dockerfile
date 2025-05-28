@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir /app/packages/markitdown[all]
 
 # Install the markitdown-web package and its dependencies (Flask)
 # This will also ensure markitdown (now installed) is recognized
-RUN pip install --no-cache-dir /app/packages/markitdown-web
+RUN pip install --no-cache-dir --index-url https://mirrors.aliyun.com/pypi/simple/ /app/packages/markitdown-web
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
