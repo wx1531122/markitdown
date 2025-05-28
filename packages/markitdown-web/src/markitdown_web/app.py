@@ -1,33 +1,35 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
-from markitdown import MarkItDown # Assuming markitdown is installable/importable
+from markitdown import MarkItDown  # Assuming markitdown is installable/importable
 
 # Define the upload folder and ensure it exists
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tmp_uploads')
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp_uploads")
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SECRET_KEY'] = 'supersecretkey' # Needed for flash messages
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["SECRET_KEY"] = "supersecretkey"  # Needed for flash messages
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/upload', methods=['POST'])
+
+@app.route("/upload", methods=["POST"])
 def upload_file():
-    if 'file' not in request.files:
-        flash('No file part')
+    if "file" not in request.files:
+        flash("No file part")
         return redirect(request.url)
-    file = request.files['file']
-    if file.filename == '':
-        flash('No selected file')
+    file = request.files["file"]
+    if file.filename == "":
+        flash("No selected file")
         return redirect(request.url)
     if file:
         filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
         try:
             file.save(filepath)
 
@@ -48,23 +50,24 @@ def upload_file():
             os.remove(filepath)
 
             # Render the result template
-            return render_template('result.html', markdown_content=markdown_content)
+            return render_template("result.html", markdown_content=markdown_content)
 
         except Exception as e:
-            flash(f'An error occurred during conversion: {str(e)}')
+            flash(f"An error occurred during conversion: {str(e)}")
             if os.path.exists(filepath):
-                os.remove(filepath) # Clean up if an error occurs after saving
-            return redirect(url_for('index'))
-        
-    return redirect(url_for('index'))
+                os.remove(filepath)  # Clean up if an error occurs after saving
+            return redirect(url_for("index"))
+
+    return redirect(url_for("index"))
 
 
-@app.route('/hello') # Kept for testing if needed
+@app.route("/hello")  # Kept for testing if needed
 def hello_world():
-    return 'Hello, MarkItDown Web!'
+    return "Hello, MarkItDown Web!"
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Suitable for running in Docker. For local dev, debug=True is fine.
     # The FLASK_ENV=production in Dockerfile would ideally set debug=False,
     # but explicitly setting it here for direct python execution.
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=False)
