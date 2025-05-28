@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MarkItDown Web - Conversion Result</title>
+    <style>
+      body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+      .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+      h1 { color: #333; }
+      textarea { width: 98%; min-height: 400px; border: 1px solid #ddd; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 14px; }
+      a { color: #007bff; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .back-link { margin-top: 20px; display: inline-block; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Conversion Result</h1>
+      <textarea readonly>{{ markdown_content }}</textarea>
+      <div class="back-link">
+        <a href="{{ url_for('index') }}">Convert another file</a>
+      </div>
+    </div>
+  </body>
+</html>
