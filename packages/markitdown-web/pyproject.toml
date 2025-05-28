@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "markitdown-web"
+version = "0.1.0"
+description = "A web interface for the markitdown conversion tool."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = ["web", "markdown", "conversion"]
+authors = [
+  { name = "AI Agent" } 
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Framework :: Flask",
+]
+
+dependencies = [
+  "Flask>=2.0",
+  "markitdown" # This will refer to the local package
+]
+
+[project.urls]
+Source = "" # Add a source URL if you host this separately
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = "src"
+
+[tool.hatch.envs.default.features]
+# Used by hatch build -t wheel
+# No specific features needed for a simple Flask app beyond dependencies
+all = []
+
+[project.scripts]
+# If you want a command to run the web app, e.g., using a production server
+# markitdown-web-run = "markitdown_web.__main__:main"
+
+[tool.hatch.envs.hatch-test]
+extra-dependencies = [
+  "pytest>=6.0",
+  "pytest-cov"
+]
+[tool.hatch.envs.hatch-test.scripts]
+test = "pytest tests"
+cov = "pytest --cov=src/markitdown_web --cov-report=html tests"
