@@ -24,7 +24,8 @@ classifiers = [
 
 dependencies = [
   "Flask>=2.0",
-  "markitdown" # This will refer to the local package
+  "markitdown", # This will refer to the local package
+  "gunicorn"
 ]
 
 [project.urls]

@@ -45,4 +45,4 @@ ENV FLASK_ENV=production
 # Let's defer the app.py modification to a later step if needed, or do it here.
 # For now, let's assume app.py will be run directly.
 
-CMD ["python", "packages/markitdown-web/src/markitdown_web/app.py"]
+CMD ["gunicorn", "--workers", "2", "--bind", "0.0.0.0:5000", "markitdown_web.app:app"]
